@@ -520,4 +520,5 @@ second: 2023
 4. Проверка отсутствия аннотации
 
 Вывод:
+
 <img width="572" height="122" alt="image" src="https://github.com/user-attachments/assets/d1764cd0-1530-4005-9e8c-b639fcfe1a9c" />
