@@ -106,33 +106,6 @@ public class Main {
 
                     ValidateAnnotation.processClass(User.class);
 
-                    System.out.println("Первый пользователь:");
-                    System.out.print("Введите имя пользователя: ");
-                    String username1 = scanner.nextLine().trim();
-
-                    System.out.print("Введите email: ");
-                    String email1 = scanner.nextLine().trim();
-
-                    User user1 = new User(username1.isEmpty() ? "Иван" : username1,
-                            email1.isEmpty() ? "ivan@example.com" : email1);
-
-                    System.out.println("Второй пользователь:");
-                    System.out.print("Введите имя пользователя: ");
-                    String username2 = scanner.nextLine().trim();
-
-                    System.out.print("Введите email: ");
-                    String email2 = scanner.nextLine().trim();
-
-                    User user2 = new User(username2.isEmpty() ? "Гарри" : username2,
-                            email2.isEmpty() ? "garry@company.org" : email2);
-
-                    System.out.println("Созданы пользователи:");
-                    System.out.println("1. " + user1);
-                    System.out.println("2. " + user2);
-
-                    System.out.println("Поля класса User:");
-                    System.out.println("• username: " + user1.getUsername());
-                    System.out.println("• email: " + user1.getEmail());
                     break;
 
                 case 5:
