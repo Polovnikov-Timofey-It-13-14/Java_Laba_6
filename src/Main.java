@@ -113,6 +113,7 @@ public class Main {
 
                     TwoAnnotation.processAnnotation(Car.class);
 
+                    /*
                     Car car1 = new Car("Toyota", 2022);
                     System.out.println("Автомобиль 1: " + car1);
                     System.out.println("Новый: " + car1.isNew());
@@ -157,13 +158,14 @@ public class Main {
                     } catch (IllegalArgumentException e) {
                         System.out.println("Ошибка: " + e.getMessage());
                     }
+                     */
                     break;
 
                 case 6:
                     System.out.println("6 Задание");
 
                     CacheAnnotation.processCacheAnnotation(BankAccount.class);
-
+                    /*
                     System.out.print("Введите номер счета: ");
                     String accountNumber = scanner.nextLine().trim();
 
@@ -260,6 +262,8 @@ public class Main {
 
                     account.withdraw(withdrawAmount);
                     System.out.println("После снятия: " + account);
+
+                     */
                     break;
 
                 case 7:
