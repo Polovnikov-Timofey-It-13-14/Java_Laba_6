@@ -5,7 +5,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Valid valid = new Valid();
 
-        System.out.println("Привет, это 5 лаба по Java");
+        System.out.println("Привет, это 6 лаба по Java");
         String number;
         while (true) {
             System.out.println("Введи номер задания(1-8):");
