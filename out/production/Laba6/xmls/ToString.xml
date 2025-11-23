@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>ToString</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <targets>
+            <target>TYPE</target>
+            <target>FIELD</target>
+        </targets>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <parameters>
+            <parameter>
+                <name>value</name>
+                <type>ToString.Mode</type>
+                <required>false</required>
+                <default-value>Mode.YES</default-value>
+                <purpose>Определяет, должно ли поле/класс включаться в строковое представление</purpose>
+            </parameter>
+        </parameters>
+
+        <enum-types>
+            <enum name="Mode">
+                <value>YES</value>
+                <value>NO</value>
+                <purpose>Режим включения в строковое представление</purpose>
+            </enum>
+        </enum-types>
+
+        <purpose>
+            Аннотация для управления включением полей в строковое представление.
+            Позволяет гибко настраивать, какие поля должны отображаться в toString().
+        </purpose>
+
+        <code-location>
+            <file>ToString.java</file>
+            <lines>1-12</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

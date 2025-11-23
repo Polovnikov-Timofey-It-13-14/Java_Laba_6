@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>DefaultAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Annotation Processor Class</type>
+
+        <annotations>
+            <annotation type="Default">
+                <parameter name="value">Student.class</parameter>
+                <purpose>Указывает, что этот класс связан со Student по умолчанию</purpose>
+            </annotation>
+        </annotations>
+
+        <fields>
+            <field>
+                <name>faculty</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>"Computer Science"</initial-value>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>DefaultAnnotation</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Конструктор по умолчанию</functionality>
+                <initialization>
+                    <field name="faculty">"Computer Science"</field>
+                </initialization>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getDepartment</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает название факультета</functionality>
+                <note>Некорректное именование - возвращает faculty, а называется getDepartment</note>
+            </method>
+
+            <method category="business">
+                <name>processStudent</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>student</name>
+                        <type>Student</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Обрабатывает студента и выводит информацию о нем</functionality>
+                <output>
+                    "Обработка студента: {student.name}, курс: {student.course}, факультет: {faculty}"
+                </output>
+                <side-effects>
+                    <side-effect>Console output</side-effect>
+                </side-effects>
+                <dependencies>
+                    <dependency>Student.getName()</dependency>
+                    <dependency>Student.getCourse()</dependency>
+                    <dependency>this.faculty</dependency>
+                </dependencies>
+            </method>
+        </methods>
+
+        <relationships>
+            <relationship type="annotation">
+                <target>Default</target>
+                <value>Student.class</value>
+                <purpose>Связывает класс со Student по умолчанию</purpose>
+            </relationship>
+            <relationship type="dependency">
+                <target>Student</target>
+                <purpose>Использует Student в методе processStudent</purpose>
+            </relationship>
+        </relationships>
+
+        <design-issues>
+            <issue severity="medium">
+                <description>Некорректное именование метода getDepartment</description>
+                <problem>Метод возвращает faculty, но называется getDepartment</problem>
+                <suggestion>Переименовать в getFaculty или изменить поле на department</suggestion>
+            </issue>
+            <issue severity="low">
+                <description>Отсутствует использование аннотации @Default в коде</description>
+                <problem>Аннотация присутствует, но не используется в логике класса</problem>
+                <suggestion>Добавить логику, которая использует информацию из аннотации</suggestion>
+            </issue>
+        </design-issues>
+    </class>
+</class-report>

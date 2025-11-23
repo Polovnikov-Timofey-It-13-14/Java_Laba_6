@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>Default</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <targets>
+            <target>TYPE</target>
+            <target>FIELD</target>
+        </targets>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <parameters>
+            <parameter>
+                <name>value</name>
+                <type>java.lang.Class&lt;?&gt;</type>
+                <required>true</required>
+                <purpose>Указывает класс по умолчанию для создания экземпляров</purpose>
+            </parameter>
+        </parameters>
+
+        <purpose>
+            Аннотация для указания класса по умолчанию.
+            Может применяться к типам (классам) и полям для указания
+            класса, который должен использоваться по умолчанию.
+        </purpose>
+
+        <code-location>
+            <file>Default.java</file>
+            <lines>1-8</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

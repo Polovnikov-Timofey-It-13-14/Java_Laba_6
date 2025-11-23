@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>Main</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Main Application Class</type>
+
+        <imports>
+            <import>java.util.Scanner</import>
+        </imports>
+
+        <documentation>
+            <description>Главный класс приложения для демонстрации работы всех заданий лабораторной работы</description>
+            <purpose>Предоставляет интерактивный интерфейс с комплексной валидацией ввода для тестирования функциональности аннотаций</purpose>
+        </documentation>
+
+        <validation-system>
+            <validator-class>Valid</validator-class>
+            <validation-methods>
+                <method>isNumber() - проверка положительных целых чисел</method>
+                <method>isPositiveInteger() - проверка положительных целых чисел</method>
+                <method>isInteger() - проверка целых чисел</method>
+            </validation-methods>
+        </validation-system>
+
+        <methods>
+            <method category="main">
+                <name>main</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>args</name>
+                        <type>java.lang.String[]</type>
+                        <purpose>Аргументы командной строки</purpose>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <documentation>Главный метод приложения с расширенной системой валидации ввода</documentation>
+                <functionality>
+                    Обеспечивает интерактивный интерфейс с комплексной валидацией ввода для демонстрации всех 8 заданий.
+                    Использует класс Valid для проверки корректности пользовательского ввода.
+                </functionality>
+
+                <input-validation-flow>
+                    <step>Ввод номера задания с проверкой isNumber()</step>
+                    <step>Проверка диапазона 1-9</step>
+                    <step>Для заданий с пользовательским вводом - циклы валидации</step>
+                    <step>Обработка исключений бизнес-логики</step>
+                </input-validation-flow>
+
+                <enhanced-validation-features>
+                    <feature>Циклический ввод до получения корректных данных</feature>
+                    <feature>Конкретные сообщения об ошибках</feature>
+                    <feature>Проверка пустых строк для текстовых полей</feature>
+                    <feature>Проверка числовых диапазонов</feature>
+                    <feature>Интеграция с валидацией бизнес-логики классов</feature>
+                </enhanced-validation-features>
+            </method>
+        </methods>
+
+        <task-implementations>
+            <task number="1">
+                <title>Демонстрация аннотации @Invoke</title>
+                <validation>
+                    <input type="String" name="name" validation="Not empty (ручная проверка)"/>
+                    <input type="int" name="age" validation="isPositiveInteger() + ручная проверка >= 0"/>
+                </validation>
+                <validation-loop>Да (для обоих полей)</validation-loop>
+                <error-messages>
+                    <message>"Ошибка: имя не может быть пустым!"</message>
+                    <message>"Ошибка: возраст должен быть положительным целым числом"</message>
+                    <message>"Ошибка: возраст не может быть отрицательным"</message>
+                </error-messages>
+            </task>
+
+            <task number="2">
+                <title>Демонстрация аннотации @Default</title>
+                <validation>Не требуется (автоматическая демонстрация)</validation>
+            </task>
+
+            <task number="3">
+                <title>Демонстрация аннотации @ToString</title>
+                <validation>Не требуется (автоматическая демонстрация)</validation>
+            </task>
+
+            <task number="4">
+                <title>Демонстрация аннотации @Validate</title>
+                <validation>Не требуется (автоматическая демонстрация)</validation>
+            </task>
+
+            <task number="5">
+                <title>Демонстрация аннотации @Two</title>
+                <validation>
+                    <input type="String" name="brand" validation="Not empty (ручная проверка)"/>
+                    <input type="int" name="year" validation="isInteger() + Car.setYear() валидация"/>
+                </validation>
+                <validation-loop>Да (для обоих полей)</validation-loop>
+                <error-messages>
+                    <message>"Ошибка: марка не может быть пустой!"</message>
+                    <message>"Ошибка: год должен быть целым числом"</message>
+                    <message>Сообщения от Car.setYear()</message>
+                </error-messages>
+            </task>
+
+            <task number="6">
+                <title>Демонстрация аннотации @Cache</title>
+                <validation>Не требуется (автоматическая демонстрация)</validation>
+            </task>
+
+            <task number="7">
+                <title>Запуск тестов @Invoke</title>
+                <validation>Не требуется (информационное сообщение)</validation>
+            </task>
+
+            <task number="8">
+                <title>Запуск тестов @Two</title>
+                <validation>Не требуется (информационное сообщение)</validation>
+            </task>
+        </task-implementations>
+
+        <user-interface-enhancements>
+            <enhancement>Улучшенная валидация числового ввода</enhancement>
+            <enhancement>Циклический ввод до получения корректных данных</enhancement>
+            <enhancement>Конкретные сообщения об ошибках для разных типов невалидных данных</enhancement>
+            <enhancement>Интеграция с бизнес-валидацией классов (Car, Human)</enhancement>
+            <enhancement>Визуальное разделение заданий</enhancement>
+            <enhancement>Корректное закрытие ресурсов при выходе</enhancement>
+        </user-interface-enhancements>
+
+        <validation-statistics>
+            <tasks-with-validation>2 (задания 1 и 5)</tasks-with-validation>
+            <validation-methods-used>3 (isNumber, isPositiveInteger, isInteger)</validation-methods-used>
+            <validation-loops>4 (2 поля × 2 задания)</validation-loops>
+            <error-message-types>6 различных сообщений об ошибках</error-message-types>
+        </validation-statistics>
+
+        <quality-metrics>
+            <metric name="Input Validation">Excellent (комплексная многоуровневая)</metric>
+            <metric name="User Experience">High (понятные сообщения, циклы ввода)</metric>
+            <metric name="Error Handling">Comprehensive</metric>
+            <metric name="Integration with Business Logic">Strong</metric>
+            <metric name="Resource Management">Good (закрытие Scanner)</metric>
+        </quality-metrics>
+    </class>
+</class-report>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>Student</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO (Plain Old Java Object)</type>
+
+        <fields>
+            <field>
+                <name>name</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>null (в конструкторе)</initial-value>
+            </field>
+            <field>
+                <name>course</name>
+                <type>int</type>
+                <access>private</access>
+                <initial-value>0 (в конструкторе)</initial-value>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>Student</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Конструктор по умолчанию</functionality>
+                <initialization>
+                    <field name="name">"Неизвестно"</field>
+                    <field name="course">1</field>
+                </initialization>
+            </constructor>
+            <constructor>
+                <name>Student</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>name</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                    <parameter>
+                        <name>course</name>
+                        <type>int</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Конструктор с параметрами</functionality>
+                <initialization>
+                    <field name="name">Параметр name</field>
+                    <field name="course">Параметр course</field>
+                </initialization>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getName</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает имя студента</functionality>
+            </method>
+
+            <method category="accessor">
+                <name>getCourse</name>
+                <return-type>int</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает курс студента</functionality>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление объекта Student</functionality>
+                <return-format>"Student{name='{name}', course={course}}"</return-format>
+            </method>
+        </methods>
+
+        <default-values>
+            <field name="name">"Неизвестно"</field>
+            <field name="course">1</field>
+        </default-values>
+
+        <statistics>
+            <total-methods>3</total-methods>
+            <accessor-methods>2</accessor-methods>
+            <object-methods>1</object-methods>
+            <constructors>2</constructors>
+            <fields>2</fields>
+        </statistics>
+    </class>
+</class-report>

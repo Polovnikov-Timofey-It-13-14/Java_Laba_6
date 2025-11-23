@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>Invoke</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <target>METHOD</target>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <purpose>
+            Маркировка методов для автоматического вызова через рефлексию.
+            Используется для обозначения методов, которые должны быть
+            автоматически выполнены системой вызова аннотированных методов.
+        </purpose>
+
+        <code-location>
+            <file>Invoke.java</file>
+            <lines>1-8</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

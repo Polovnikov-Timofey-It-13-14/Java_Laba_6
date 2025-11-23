@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>BankAccount</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO with @Cache Annotation</type>
+
+        <annotations>
+            <annotation type="Cache">
+                <parameters>
+                    <parameter name="value">
+                        <values>
+                            <value>"balance"</value>
+                            <value>"transactions"</value>
+                            <value>"account_info"</value>
+                            <value>"user_data"</value>
+                        </values>
+                    </parameter>
+                </parameters>
+                <purpose>Указывает области данных, которые должны кешироваться</purpose>
+            </annotation>
+        </annotations>
+
+        <documentation>
+            <description>Класс BankAccount представляет банковский счет</description>
+            <purpose>Аннотирован @Cache с указанием областей кеширования</purpose>
+        </documentation>
+
+        <fields>
+            <field>
+                <name>accountNumber</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>"0000000000"</initial-value>
+                <validation>
+                    <rule>NotNull</rule>
+                    <rule>Not empty</rule>
+                    <rule>Exactly 10 digits</rule>
+                </validation>
+                <cache-area>account_info, user_data</cache-area>
+            </field>
+
+            <field>
+                <name>balance</name>
+                <type>double</type>
+                <access>private</access>
+                <initial-value>0.0</initial-value>
+                <validation>
+                    <rule>Non-negative</rule>
+                </validation>
+                <cache-area>balance</cache-area>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>BankAccount</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <documentation>Конструктор по умолчанию</documentation>
+                <functionality>Создает банковский счет с значениями по умолчанию</functionality>
+                <initialization>
+                    <field name="accountNumber">"0000000000"</field>
+                    <field name="balance">0.0</field>
+                </initialization>
+            </constructor>
+
+            <constructor>
+                <name>BankAccount</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>accountNumber</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                    <parameter>
+                        <name>balance</name>
+                        <type>double</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <documentation>Конструктор с параметрами</documentation>
+                <functionality>Создает банковский счет с указанными параметрами</functionality>
+                <validation>
+                    <validation-call>setAccountNumber(accountNumber)</validation-call>
+                    <validation-call>setBalance(balance)</validation-call>
+                </validation>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getAccountNumber</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает номер банковского счета</functionality>
+                <cache-implication>Данные могут быть кешированы в области account_info</cache-implication>
+            </method>
+
+            <method category="mutator">
+                <name>setAccountNumber</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>accountNumber</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает номер счета с валидацией</functionality>
+                <validation>
+                    <rule>Проверка на null и пустую строку</rule>
+                    <rule>Проверка формата: ровно 10 цифр</rule>
+                    <rule>Обрезка пробелов</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>accountNumber == null || accountNumber.trim().isEmpty()</condition>
+                        <message>Номер счета не может быть пустым</message>
+                    </exception>
+                    <exception type="IllegalArgumentException">
+                        <condition>!accountNumber.matches("\\d{10}")</condition>
+                        <message>Номер счета должен состоять из 10 цифр</message>
+                    </exception>
+                </exceptions>
+                <cache-implication>Изменение требует инвалидации кеша account_info</cache-implication>
+            </method>
+
+            <method category="accessor">
+                <name>getBalance</name>
+                <return-type>double</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает текущий баланс счета</functionality>
+                <cache-implication>Данные могут быть кешированы в области balance</cache-implication>
+            </method>
+
+            <method category="mutator">
+                <name>setBalance</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>balance</name>
+                        <type>double</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает баланс счета с валидацией</functionality>
+                <validation>
+                    <rule>Неотрицательное значение</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>balance &lt; 0</condition>
+                        <message>Баланс не может быть отрицательным</message>
+                    </exception>
+                </exceptions>
+                <cache-implication>Изменение требует инвалидации кеша balance</cache-implication>
+            </method>
+
+            <method category="business">
+                <name>deposit</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>amount</name>
+                        <type>double</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <documentation>Пополнение счета</documentation>
+                <functionality>Увеличивает баланс на указанную сумму</functionality>
+                <validation>
+                    <rule>Положительная сумма</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>amount &lt;= 0</condition>
+                        <message>Сумма пополнения должна быть положительной</message>
+                    </exception>
+                </exceptions>
+                <side-effects>
+                    <side-effect>Изменение поля balance</side-effect>
+                    <side-effect>Требует инвалидации кеша balance и transactions</side-effect>
+                </side-effects>
+            </method>
+
+            <method category="business">
+                <name>withdraw</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>amount</name>
+                        <type>double</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <documentation>Снятие денег со счета</documentation>
+                <functionality>Уменьшает баланс на указанную сумму</functionality>
+                <validation>
+                    <rule>Положительная сумма</rule>
+                    <rule>Достаточность средств</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>amount &lt;= 0</condition>
+                        <message>Сумма снятия должна быть положительной</message>
+                    </exception>
+                    <exception type="IllegalArgumentException">
+                        <condition>amount &gt; balance</condition>
+                        <message>Недостаточно средств на счете</message>
+                    </exception>
+                </exceptions>
+                <side-effects>
+                    <side-effect>Изменение поля balance</side-effect>
+                    <side-effect>Создание записи о транзакции</side-effect>
+                    <side-effect>Требует инвалидации кеша balance и transactions</side-effect>
+                </side-effects>
+            </method>
+
+            <method category="business">
+                <name>canWithdraw</name>
+                <return-type>boolean</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>amount</name>
+                        <type>double</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <documentation>Проверка возможности снятия денег</documentation>
+                <functionality>Проверяет, можно ли снять указанную сумму</functionality>
+                <logic>
+                    <condition>amount &gt; 0 AND amount &lt;= balance</condition>
+                    <true-result>Снятие возможно</true-result>
+                    <false-result>Снятие невозможно</false-result>
+                </logic>
+                <cache-implication>Может использовать кешированное значение balance</cache-implication>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление счета</functionality>
+                <return-format>"Счет: {accountNumber}, Баланс: {balance} руб."</return-format>
+                <formatting>Форматирование баланса с двумя десятичными знаками</formatting>
+            </method>
+        </methods>
+
+        <cache-areas>
+            <area name="balance">
+                <purpose>Кеширование данных о балансе счета</purpose>
+                <related-fields>balance</related-fields>
+                <related-methods>getBalance, setBalance, deposit, withdraw</related-methods>
+            </area>
+            <area name="transactions">
+                <purpose>Кеширование данных о транзакциях</purpose>
+                <related-methods>deposit, withdraw</related-methods>
+            </area>
+            <area name="account_info">
+                <purpose>Кеширование основной информации о счете</purpose>
+                <related-fields>accountNumber</related-fields>
+                <related-methods>getAccountNumber, setAccountNumber</related-methods>
+            </area>
+            <area name="user_data">
+                <purpose>Кеширование пользовательских данных</purpose>
+                <related-fields>accountNumber</related-fields>
+            </area>
+        </cache-areas>
+    </class>
+</class-report>

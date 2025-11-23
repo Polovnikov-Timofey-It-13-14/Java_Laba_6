@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-class-report>
+    <class>
+        <name>InvokeAnnotationTest</name>
+        <package>default</package>
+        <access-modifier>package-private</access-modifier>
+        <type>JUnit Test Class</type>
+
+        <imports>
+            <import>org.junit.jupiter.api.BeforeEach</import>
+            <import>org.junit.jupiter.api.Test</import>
+            <import>org.junit.jupiter.api.DisplayName</import>
+            <import>static org.junit.jupiter.api.Assertions.*</import>
+            <import>java.lang.reflect.Method</import>
+            <import>java.io.ByteArrayOutputStream</import>
+            <import>java.io.PrintStream</import>
+        </imports>
+
+        <documentation>
+            <description>Тестовый класс для проверки аннотации @Invoke</description>
+        </documentation>
+
+        <test-infrastructure>
+            <test-framework>JUnit 5 (Jupiter)</test-framework>
+            <setup-method>setUp() - подготовка тестового окружения</setup-method>
+            <cleanup-method>tearDown() - восстановление системных ресурсов</cleanup-method>
+            <output-capture>ByteArrayOutputStream для перехвата System.out</output-capture>
+        </test-infrastructure>
+
+        <fields>
+            <field>
+                <name>human</name>
+                <type>Human</type>
+                <access>private</access>
+                <purpose>Тестируемый объект класса Human</purpose>
+                <initialization>Инициализируется в методе setUp()</initialization>
+            </field>
+
+            <field>
+                <name>outputStream</name>
+                <type>ByteArrayOutputStream</type>
+                <access>private</access>
+                <modifier>final</modifier>
+                <purpose>Поток для перехвата вывода в консоль</purpose>
+            </field>
+
+            <field>
+                <name>originalOut</name>
+                <type>PrintStream</type>
+                <access>private</access>
+                <modifier>final</modifier>
+                <purpose>Оригинальный System.out для восстановления</purpose>
+            </field>
+        </fields>
+
+        <setup-and-teardown>
+            <method category="setup">
+                <name>setUp</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="BeforeEach"/>
+                </annotations>
+                <documentation>Подготовка тестового объекта перед каждым тестом</documentation>
+                <functionality>
+                    Инициализирует объект Human и настраивает перехват System.out
+                </functionality>
+                <operations>
+                    <operation>Создание объекта Human("Иван", 25)</operation>
+                    <operation>Перенаправление System.out в ByteArrayOutputStream</operation>
+                </operations>
+            </method>
+
+            <method category="teardown">
+                <name>tearDown</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="AfterEach"/>
+                </annotations>
+                <functionality>Восстановление оригинального System.out после тестов</functionality>
+                <operations>
+                    <operation>Восстановление оригинального System.out</operation>
+                </operations>
+            </method>
+        </setup-and-teardown>
+
+        <test-methods>
+            <test-method>
+                <name>testInvokeAnnotationPresence</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка наличия аннотации @Invoke на методах"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет наличие аннотации @Invoke на методах класса Human</documentation>
+
+                <test-scenario>
+                    <step>Получение всех методов класса Human через рефлексию</step>
+                    <step>Подсчет методов с аннотацией @Invoke</step>
+                    <step>Вывод информации о найденных аннотированных методах</step>
+                    <step>Проверка, что найдено хотя бы один метод с аннотацией</step>
+                    <step>Проверка точного количества аннотированных методов (4)</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>annotatedMethodsCount &gt; 0</condition>
+                        <message>"Должен быть хотя бы один метод с аннотацией @Invoke"</message>
+                    </assertion>
+                    <assertion type="assertEquals">
+                        <expected>4</expected>
+                        <actual>annotatedMethodsCount</actual>
+                        <message>"Должно быть 4 метода с аннотацией @Invoke"</message>
+                    </assertion>
+                </assertions>
+
+                <reflection-usage>
+                    <operation>human.getClass().getDeclaredMethods()</operation>
+                    <operation>method.isAnnotationPresent(Invoke.class)</operation>
+                </reflection-usage>
+            </test-method>
+
+            <test-method>
+                <name>testSayHelloMethod</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка вызова метода sayHello"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет вызов метода sayHello с аннотацией @Invoke</documentation>
+
+                <test-scenario>
+                    <step>Получение метода sayHello через рефлексию</step>
+                    <step>Проверка наличия аннотации @Invoke</step>
+                    <step>Вызов метода через Method.invoke()</step>
+                    <step>Проверка вывода в консоль</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>sayHelloMethod.isAnnotationPresent(Invoke.class)</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Иван говорит: Привет! Мне 25 лет.")</condition>
+                    </assertion>
+                </assertions>
+
+                <exception-handling>
+                    <strategy>try-catch с fail() в блоке catch</strategy>
+                    <expected-behavior>Метод должен выполняться без исключений</expected-behavior>
+                </exception-handling>
+
+                <reflection-usage>
+                    <operation>human.getClass().getDeclaredMethod("sayHello")</operation>
+                    <operation>method.invoke(human)</operation>
+                </reflection-usage>
+            </test-method>
+
+            <test-method>
+                <name>testIntroduceMethod</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка вызова метода introduce"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет вызов метода introduce с аннотацией @Invoke</documentation>
+
+                <test-scenario>
+                    <step>Получение метода introduce с параметром String</step>
+                    <step>Проверка наличия аннотации @Invoke</step>
+                    <step>Вызов метода с параметром "отличное"</step>
+                    <step>Проверка вывода в консоль</step>
+                    <step>Проверка возвращаемого значения</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>method.isAnnotationPresent(Invoke.class)</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Меня зовут Иван, мне 25 лет. Настроение: отличное")</condition>
+                    </assertion>
+                    <assertion type="assertNotNull">
+                        <condition>result != null</condition>
+                    </assertion>
+                    <assertion type="assertInstanceOf">
+                        <expected>String.class</expected>
+                        <actual>result</actual>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>resultString.contains("Иван")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>resultString.contains("25")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>resultString.contains("отличное")</condition>
+                    </assertion>
+                </assertions>
+
+                <test-data>
+                    <parameter-value>"отличное"</parameter-value>
+                </test-data>
+            </test-method>
+
+            <test-method>
+                <name>testCheckAdultMethod</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка вызова метода checkAdult"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет вызов метода checkAdult с аннотацией @Invoke</documentation>
+
+                <test-scenario>
+                    <step>Получение метода checkAdult через рефлексию</step>
+                    <step>Проверка наличия аннотации @Invoke</step>
+                    <step>Вызов метода</step>
+                    <step>Проверка вывода в консоль</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>method.isAnnotationPresent(Invoke.class)</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Иван совершеннолетний(яя)")</condition>
+                    </assertion>
+                </assertions>
+
+                <expected-output>"Иван совершеннолетний(яя)"</expected-output>
+            </test-method>
+
+            <test-method>
+                <name>testCelebrateBirthdayMethod</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка вызова метода celebrateBirthday и изменения состояния"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет вызов метода celebrateBirthday с аннотацией @Invoke и изменение состояния</documentation>
+
+                <test-scenario>
+                    <step>Получение метода celebrateBirthday через рефлексию</step>
+                    <step>Проверка наличия аннотации @Invoke</step>
+                    <step>Сохранение начального возраста</step>
+                    <step>Вызов метода</step>
+                    <step>Проверка вывода в консоль</step>
+                    <step>Проверка изменения состояния объекта</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>method.isAnnotationPresent(Invoke.class)</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("С днем рождения, Иван! Теперь тебе " + (initialAge + 1) + " лет.")</condition>
+                    </assertion>
+                    <assertion type="assertEquals">
+                        <expected>initialAge + 1</expected>
+                        <actual>human.getAge()</actual>
+                        <message>"Возраст должен увеличиться на 1"</message>
+                    </assertion>
+                </assertions>
+
+                <state-changes>
+                    <change field="age">Увеличение на 1</change>
+                </state-changes>
+            </test-method>
+
+            <test-method>
+                <name>testInvokeAnnotationClass</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка работы InvokeAnnotation класса"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет работу класса InvokeAnnotation</documentation>
+
+                <test-scenario>
+                    <step>Очистка вывода перед тестом</step>
+                    <step>Вызов InvokeAnnotation.invokeAnnotatedMethods(human)</step>
+                    <step>Проверка, что все аннотированные методы были вызваны</step>
+                    <step>Проверка статистики вызовов</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Найден метод с @Invoke: sayHello")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Найден метод с @Invoke: introduce")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Найден метод с @Invoke: checkAdult")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Найден метод с @Invoke: celebrateBirthday")</condition>
+                    </assertion>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Вызвано методов: 4")</condition>
+                    </assertion>
+                </assertions>
+
+                <integration-test>Проверка интеграции с классом InvokeAnnotation</integration-test>
+            </test-method>
+
+            <test-method>
+                <name>testUnderageHuman</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка с несовершеннолетним человеком"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет поведение с несовершеннолетним человеком</documentation>
+
+                <test-scenario>
+                    <step>Создание объекта Human с возрастом 16 лет</step>
+                    <step>Получение метода checkAdult через рефлексию</step>
+                    <step>Вызов метода</step>
+                    <step>Проверка вывода для несовершеннолетнего</step>
+                </test-scenario>
+
+                <test-data>
+                    <object>new Human("Анна", 16)</object>
+                </test-data>
+
+                <assertions>
+                    <assertion type="assertTrue">
+                        <condition>output.contains("Анна несовершеннолетний(яя)")</condition>
+                    </assertion>
+                </assertions>
+
+                <edge-case>Проверка граничного условия (возраст &lt; 18)</edge-case>
+            </test-method>
+
+            <test-method>
+                <name>testNullObjectHandling</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>package-private</access>
+                <annotations>
+                    <annotation type="Test"/>
+                    <annotation type="DisplayName">
+                        <value>"Проверка обработки null объекта"</value>
+                    </annotation>
+                </annotations>
+                <documentation>Тест проверяет обработку исключений в InvokeAnnotation</documentation>
+
+                <test-scenario>
+                    <step>Попытка вызова InvokeAnnotation.invokeAnnotatedMethods(null)</step>
+                    <step>Ожидание исключения IllegalArgumentException</step>
+                </test-scenario>
+
+                <assertions>
+                    <assertion type="assertThrows">
+                        <exception>IllegalArgumentException.class</exception>
+                        <executable>InvokeAnnotation.invokeAnnotatedMethods(null)</executable>
+                        <message>"Должно выбрасываться исключение для null объекта"</message>
+                    </assertion>
+                </assertions>
+
+                <exception-test>Проверка корректной обработки ошибочных входных данных</exception-test>
+            </test-method>
+        </test-methods>
+
+        <test-coverage>
+            <coverage-area>Annotation Detection</coverage-area>
+            <coverage-area>Method Invocation via Reflection</coverage-area>
+            <coverage-area>Output Verification</coverage-area>
+            <coverage-area>Return Value Validation</coverage-area>
+            <coverage-area>State Change Verification</coverage-area>
+            <coverage-area>Exception Handling</coverage-area>
+            <coverage-area>Edge Cases</coverage-area>
+            <coverage-area>Integration Testing</coverage-area>
+        </test-coverage>
+
+        <testing-patterns>
+            <pattern>Arrange-Act-Assert (AAA)</pattern>
+            <pattern>Test Isolation (Fresh instance per test)</pattern>
+            <pattern>Output Capturing</pattern>
+            <pattern>Exception Testing</pattern>
+            <pattern>State Verification</pattern>
+            <pattern>Behavior Verification</pattern>
+        </testing-patterns>
+
+        <statistics>
+            <total-test-methods>8</total-test-methods>
+            <setup-methods>1</setup-methods>
+            <teardown-methods>1</teardown-methods>
+            <assertion-count>~20</assertion-count>
+            <reflection-operations>~15</reflection-operations>
+            <test-categories>
+                <category name="Unit Tests">6</category>
+                <category name="Integration Tests">1</category>
+                <category name="Exception Tests">1</category>
+            </test-categories>
+        </statistics>
+
+        <quality-metrics>
+            <metric name="Test Coverage">Comprehensive</metric>
+            <metric name="Code Quality">Excellent</metric>
+            <metric name="Documentation">Good</metric>
+            <metric name="Error Handling">Robust</metric>
+            <metric name="Maintainability">High</metric>
+        </quality-metrics>
+
+        <dependencies>
+            <dependency>JUnit 5 (jupiter-api)</dependency>
+            <dependency>Human class (tested class)</dependency>
+            <dependency>InvokeAnnotation class (tested class)</dependency>
+            <dependency>Invoke annotation</dependency>
+        </dependencies>
+    </class>
+</test-class-report>

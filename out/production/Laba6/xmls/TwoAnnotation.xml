@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>TwoAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Utility Class for @Two Annotation Processing</type>
+
+        <documentation>
+            <description>Класс для работы с аннотацией @Two</description>
+        </documentation>
+
+        <purpose>
+            Утилитарный класс для обработки аннотации @Two.
+            Предоставляет функциональность для чтения и вывода значений свойств аннотации.
+        </purpose>
+
+        <methods>
+            <method category="public-interface">
+                <name>processAnnotation</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>clazz</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                        <purpose>Класс для проверки на наличие аннотации @Two</purpose>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <documentation>Читает и выводит значения аннотации @Two</documentation>
+                <functionality>
+                    Обрабатывает класс для поиска аннотации @Two и выводит значения её свойств.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка наличия аннотации @Two на классе</step>
+                    <step number="2">Если аннотация найдена: получение объекта аннотации</step>
+                    <step number="3">Извлечение значения свойства first</step>
+                    <step number="4">Извлечение значения свойства second</step>
+                    <step number="5">Вывод значений в консоль</step>
+                </algorithm>
+
+                <output-format>
+                    <case condition="Annotation found">
+                        <line>"Аннотация @Two:"</line>
+                        <line>"first: {value}"</line>
+                        <line>"second: {value}"</line>
+                    </case>
+                    <case condition="Annotation not found">
+                        <line>Ничего не выводится (молчаливое поведение)</line>
+                    </case>
+                </output-format>
+
+                <reflection-usage>
+                    <reflection-operation>Class.isAnnotationPresent(Two.class)</reflection-operation>
+                    <reflection-operation>Class.getAnnotation(Two.class)</reflection-operation>
+                    <reflection-operation>Two.first()</reflection-operation>
+                    <reflection-operation>Two.second()</reflection-operation>
+                </reflection-usage>
+            </method>
+        </methods>
+
+        <limitations>
+            <limitation>
+                <description>Молчаливое поведение при отсутствии аннотации</description>
+                <impact>Пользователь не узнает, что аннотация отсутствует</impact>
+                <suggestion>Добавить сообщение о том, что аннотация не найдена</suggestion>
+            </limitation>
+            <limitation>
+                <description>Отсутствует обработка исключений</description>
+                <impact>Могут возникнуть исключения при рефлексии</impact>
+                <suggestion>Добавить try-catch блок</suggestion>
+            </limitation>
+        </limitations>
+
+        <extension-opportunities>
+            <opportunity>
+                <name>Enhanced Output</name>
+                <description>Добавить более информативный вывод с именем класса</description>
+                <code>
+                    System.out.println("Обработка класса: " + clazz.getSimpleName());
+                </code>
+            </opportunity>
+            <opportunity>
+                <name>Error Handling</name>
+                <description>Добавить обработку случаев отсутствия аннотации</description>
+                <code>
+                    } else {
+                    System.out.println("Аннотация @Two не найдена на классе " + clazz.getSimpleName());
+                    }
+                </code>
+            </opportunity>
+        </extension-opportunities>
+    </class>
+</class-report>

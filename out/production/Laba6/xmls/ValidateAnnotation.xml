@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>ValidateAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Utility Class for Validate Annotation Processing</type>
+
+        <purpose>
+            Утилитарный класс для обработки аннотации @Validate.
+            Извлекает и отображает информацию о классах валидации,
+            указанных в аннотации.
+        </purpose>
+
+        <methods>
+            <method category="public-interface">
+                <name>processClass</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>classes</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                        <purpose>Класс для проверки на наличие аннотации @Validate</purpose>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <functionality>
+                    Обрабатывает класс для поиска аннотации @Validate и выводит
+                    информацию о найденных классах валидации.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка наличия аннотации @Validate на классе</step>
+                    <step number="2">Если аннотация найдена: получение объекта аннотации</step>
+                    <step number="3">Извлечение массива классов валидации</step>
+                    <step number="4">Вывод общей информации о количестве классов</step>
+                    <step number="5">Итерация по массиву классов с нумерацией</step>
+                    <step number="6">Для каждого класса: вывод полного имени и простого имени</step>
+                    <step number="7">Если аннотация не найдена: вывод сообщения</step>
+                </algorithm>
+
+                <output-format>
+                    <case condition="Annotation found">
+                        <line>"Найдена аннотация @Validate"</line>
+                        <line>"Классы для проверки: X" (количество)</line>
+                        <line>"   1. full.class.Name (SimpleName)"</line>
+                        <line>"   2. full.class.Name (SimpleName)"</line>
+                        <line>...</line>
+                    </case>
+                    <case condition="Annotation not found">
+                        <line>"Аннотация @Validate не найдена"</line>
+                    </case>
+                </output-format>
+            </method>
+        </methods>
+
+        <reflection-usage>
+            <reflection-operation>Class.isAnnotationPresent(Validate.class)</reflection-operation>
+            <reflection-operation>Class.getAnnotation(Validate.class)</reflection-operation>
+            <reflection-operation>Annotation.value() (получение массива классов)</reflection-operation>
+            <reflection-operation>Class.getName()</reflection-operation>
+            <reflection-operation>Class.getSimpleName()</reflection-operation>
+        </reflection-usage>
+
+        <limitations>
+            <limitation>
+                <description>Только информационный вывод</description>
+                <impact>Не выполняет реальную валидацию</impact>
+                <suggestion>Добавить логику реальной валидации на основе классов</suggestion>
+            </limitation>
+            <limitation>
+                <description>Нет обработки исключений</description>
+                <impact>Может выбросить исключения при рефлексии</impact>
+                <suggestion>Добавить try-catch блоки</suggestion>
+            </limitation>
+        </limitations>
+
+        <extension-opportunities>
+            <opportunity>
+                <name>Real Validation</name>
+                <description>Добавить реальную логику валидации на основе указанных классов</description>
+            </opportunity>
+            <opportunity>
+                <name>Field-level Processing</name>
+                <description>Обрабатывать валидацию отдельных полей на основе классов</description>
+            </opportunity>
+            <opportunity>
+                <name>Validation Rules</name>
+                <description>Создать систему правил валидации для каждого типа класса</description>
+            </opportunity>
+        </extension-opportunities>
+    </class>
+</class-report>

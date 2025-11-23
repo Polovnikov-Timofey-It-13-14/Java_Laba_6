@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>CacheAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Utility Class for @Cache Annotation Processing</type>
+
+        <documentation>
+            <description>Класс для обработки аннотации @Cache</description>
+        </documentation>
+
+        <purpose>
+            Утилитарный класс для работы с аннотацией @Cache.
+            Предоставляет функциональность для анализа и извлечения информации
+            о кешируемых областях из аннотированных классов.
+        </purpose>
+
+        <methods>
+            <method category="public-interface">
+                <name>processCacheAnnotation</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>classes</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                        <purpose>Класс для анализа на наличие аннотации @Cache</purpose>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <documentation>Обрабатывает аннотацию @Cache и выводит результат</documentation>
+                <functionality>
+                    Анализирует класс на наличие аннотации @Cache и выводит информацию
+                    о кешируемых областях в удобочитаемом формате.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка наличия аннотации @Cache на классе</step>
+                    <step number="2">Если аннотация найдена: получение объекта аннотации</step>
+                    <step number="3">Извлечение массива кешируемых областей</step>
+                    <step number="4">Проверка длины массива областей</step>
+                    <step number="5">Вывод соответствующего сообщения</step>
+                    <step number="6">Если аннотация не найдена: вывод информационного сообщения</step>
+                </algorithm>
+
+                <output-cases>
+                    <case condition="Annotation found with areas">
+                        <output>"Найдены кешируемые области: area1, area2, area3"</output>
+                        <example>Найдены кешируемые области: balance, transactions, account_info</example>
+                    </case>
+                    <case condition="Annotation found but empty">
+                        <output>"Список кешируемых областей пуст"</output>
+                    </case>
+                    <case condition="Annotation not found">
+                        <output>"Аннотация @Cache не найдена в классе: ClassName"</output>
+                    </case>
+                </output-cases>
+
+                <reflection-usage>
+                    <reflection-operation>Class.isAnnotationPresent(Cache.class)</reflection-operation>
+                    <reflection-operation>Class.getAnnotation(Cache.class)</reflection-operation>
+                    <reflection-operation>Cache.value()</reflection-operation>
+                    <reflection-operation>Class.getSimpleName()</reflection-operation>
+                </reflection-usage>
+
+                <utility-features>
+                    <feature>Информативные сообщения для всех случаев</feature>
+                    <feature>Обработка пустого массива областей</feature>
+                    <feature>Человеко-читаемый вывод списка областей</feature>
+                </utility-features>
+            </method>
+
+            <method category="public-interface">
+                <name>getCacheAreas</name>
+                <return-type>java.lang.String[]</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>clazz</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                        <purpose>Класс для анализа</purpose>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <documentation>Получает массив кешируемых областей</documentation>
+                <functionality>
+                    Извлекает массив кешируемых областей из аннотации @Cache.
+                    Возвращает null если аннотация отсутствует.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка наличия аннотации @Cache</step>
+                    <step number="2">Если аннотация найдена: возврат массива областей</step>
+                    <step number="3">Если аннотация не найдена: возврат null</step>
+                </algorithm>
+
+                <return-values>
+                    <value type="String[]">Массив кешируемых областей при наличии аннотации</value>
+                    <value type="null">Если аннотация @Cache отсутствует на классе</value>
+                </return-values>
+
+                <use-cases>
+                    <use-case>Программный доступ к областям кеширования</use-case>
+                    <use-case>Интеграция с системами кеширования</use-case>
+                    <use-case>Динамическая обработка кеш-конфигурации</use-case>
+                </use-cases>
+            </method>
+        </methods>
+
+        <method-comparison>
+            <method name="processCacheAnnotation">
+                <purpose>Для вывода информации пользователю</purpose>
+                <return-type>void</return-type>
+                <output>Console messages</output>
+                <audience>End users, developers</audience>
+            </method>
+
+            <method name="getCacheAreas">
+                <purpose>Для программного использования</purpose>
+                <return-type>String[]</return-type>
+                <output>Array of cache areas</output>
+                <audience>Other classes, frameworks</audience>
+            </method>
+        </method-comparison>
+
+        <error-handling>
+            <strategy>Null-safe возврат для getCacheAreas</strategy>
+            <strategy>Информативные сообщения для processCacheAnnotation</strategy>
+            <note>Нет явной обработки исключений рефлексии</note>
+        </error-handling>
+
+        <extension-opportunities>
+            <opportunity>
+                <name>Cache Management</name>
+                <description>Добавить методы для управления кешем на основе аннотации</description>
+            </opportunity>
+            <opportunity>
+                <name>Validation</name>
+                <description>Добавить проверку валидности областей кеширования</description>
+            </opportunity>
+        </extension-opportunities>
+    </class>
+</class-report>
