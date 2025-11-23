@@ -37,7 +37,7 @@ public class Car {
 
     //Проверить, является ли автомобиль новым
     public boolean isNew() {
-        return year == 2025;
+        return year >= 2025;
     }
 
     @Override
@@ -45,3 +45,4 @@ public class Car {
         return brand + " (" + year + ")";
     }
 }
+
