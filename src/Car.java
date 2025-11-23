@@ -5,7 +5,7 @@ public class Car {
 
     public Car() {
         this.brand = "Неизвестно";
-        this.year = 2020;
+        this.year = 0;
     }
 
     public Car(String brand, int year) {
@@ -30,14 +30,14 @@ public class Car {
 
     public void setYear(int year) {
         if (year < 1900 || year > 2025) {
-            throw new IllegalArgumentException("Год должен быть от 1900 до 2024");
+            throw new IllegalArgumentException("Год должен быть от 1900 до 2025");
         }
         this.year = year;
     }
 
     //Проверить, является ли автомобиль новым
     public boolean isNew() {
-        return year >= 2025;
+        return year == 2025;
     }
 
     @Override
