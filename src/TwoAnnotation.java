@@ -1,9 +1,9 @@
 public class TwoAnnotation {
 
     //Читает и выводит значения аннотации @Two
-    public static void processAnnotation(Class<?> clazz) {
-        if (clazz.isAnnotationPresent(Two.class)) {
-            Two annotation = clazz.getAnnotation(Two.class);
+    public static void processAnnotation(Class<?> classes) {
+        if (classes.isAnnotationPresent(Two.class)) {
+            Two annotation = classes.getAnnotation(Two.class);
             System.out.println("Аннотация @Two:");
             System.out.println("first: " + annotation.first());
             System.out.println("second: " + annotation.second());
@@ -11,12 +11,12 @@ public class TwoAnnotation {
     }
 
     //Валидирует аннотацию @Two и выбрасывает исключение при некорректных значениях
-    public static void validateTwoAnnotation(Class<?> clazz) {
-        if (!clazz.isAnnotationPresent(Two.class)) {
-            throw new IllegalArgumentException("Класс " + clazz.getSimpleName() + " не содержит аннотацию @Two");
+    public static void validateTwoAnnotation(Class<?> classes) {
+        if (!classes.isAnnotationPresent(Two.class)) {
+            throw new IllegalArgumentException("Класс " + classes.getSimpleName() + " не содержит аннотацию @Two");
         }
 
-        Two annotation = clazz.getAnnotation(Two.class);
+        Two annotation = classes.getAnnotation(Two.class);
         String first = annotation.first();
         int second = annotation.second();
 
