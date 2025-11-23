@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>Human</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO (Plain Old Java Object)</type>
+
+        <fields>
+            <field>
+                <name>name</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <validation>
+                    <rule>NotNull</rule>
+                    <rule>Not empty</rule>
+                    <rule>Not blank</rule>
+                </validation>
+                <initial-value>"null"</initial-value>
+            </field>
+
+            <field>
+                <name>age</name>
+                <type>int</type>
+                <access>private</access>
+                <validation>
+                    <rule>Non-negative</rule>
+                </validation>
+                <initial-value>0</initial-value>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>Human</name>
+                <parameters count="0">
+                </parameters>
+                <access>public</access>
+                <functionality>Инициализация полей значениями по умолчанию</functionality>
+                <initialization>
+                    <field name="name">"null"</field>
+                    <field name="age">0</field>
+                </initialization>
+            </constructor>
+
+            <constructor>
+                <name>Human</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>name</name>
+                        <type>java.lang.String</type>
+                        <validation>NotNull and not empty</validation>
+                    </parameter>
+                    <parameter>
+                        <name>age</name>
+                        <type>int</type>
+                        <validation>age &lt; 0</validation>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Инициализация полей с валидацией входных параметров</functionality>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>name == null || name.trim().isEmpty()</condition>
+                        <message>Имя не может быть пустым</message>
+                    </exception>
+                    <exception type="IllegalArgumentException">
+                        <condition>age &lt; 0</condition>
+                        <message>Возраст не может быть отрицательным</message>
+                    </exception>
+                </exceptions>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getName</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает значение поля name</functionality>
+            </method>
+
+            <method category="mutator">
+                <name>setName</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>name</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает значение поля name с валидацией</functionality>
+                <validation>
+                    <rule>NotNull</rule>
+                    <rule>Not empty</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>name == null || name.trim().isEmpty()</condition>
+                        <message>Имя не может быть пустым</message>
+                    </exception>
+                </exceptions>
+            </method>
+
+            <method category="accessor">
+                <name>getAge</name>
+                <return-type>int</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает значение поля age</functionality>
+            </method>
+
+            <method category="mutator">
+                <name>setAge</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>age</name>
+                        <type>int</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает значение поля age с валидацией</functionality>
+                <validation>
+                    <rule>Non-negative</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>age &lt; 0</condition>
+                        <message>Возраст не может быть отрицательным</message>
+                    </exception>
+                </exceptions>
+            </method>
+
+            <method category="business">
+                <name>sayHello</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Invoke"/>
+                </annotations>
+                <functionality>Выводит приветствие в консоль</functionality>
+                <output>"{name} говорит: Привет! Мне {age} лет."</output>
+                <side-effect>Console output</side-effect>
+            </method>
+
+            <method category="business">
+                <name>introduce</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>mood</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Invoke"/>
+                </annotations>
+                <functionality>Создает и возвращает строку-представление персонажа</functionality>
+                <return-value>"Меня зовут {name}, мне {age} лет. Настроение: {mood}"</return-value>
+                <side-effect>Console output</side-effect>
+            </method>
+
+            <method category="business">
+                <name>checkAdult</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Invoke"/>
+                </annotations>
+                <functionality>Проверяет совершеннолетие и выводит результат</functionality>
+                <logic>
+                    <condition>age &gt;= 18</condition>
+                    <true-output>"{name} совершеннолетний(яя)"</true-output>
+                    <false-output>"{name} несовершеннолетний(яя)"</false-output>
+                </logic>
+                <side-effect>Console output</side-effect>
+            </method>
+
+            <method category="business">
+                <name>celebrateBirthday</name>
+                <return-type>void</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Invoke"/>
+                </annotations>
+                <functionality>Увеличивает возраст на 1 и выводит поздравление</functionality>
+                <side-effects>
+                    <side-effect>Инкрементирует поле age</side-effect>
+                    <side-effect>Console output</side-effect>
+                </side-effects>
+                <output>"С днем рождения, {name}! Теперь тебе {age} лет."</output>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление объекта</functionality>
+                <return-format>"Person{name='{name}', age={age}}"</return-format>
+            </method>
+        </methods>
+
+        <statistics>
+            <total-methods>10</total-methods>
+            <accessor-methods>2</accessor-methods>
+            <mutator-methods>2</mutator-methods>
+            <business-methods>4</business-methods>
+            <object-methods>1</object-methods>
+            <annotated-methods>4</annotated-methods>
+            <validation-points>5</validation-points>
+            <constructors>2</constructors>
+        </statistics>
+
+        <design-patterns>
+            <pattern>JavaBean</pattern>
+            <pattern>POJO</pattern>
+        </design-patterns>
+    </class>
+</class-report>

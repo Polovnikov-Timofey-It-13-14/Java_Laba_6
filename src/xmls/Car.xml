@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>Car</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO with @Two Annotation</type>
+
+        <annotations>
+            <annotation type="Two">
+                <parameters>
+                    <parameter name="first">"Automobile"</parameter>
+                    <parameter name="second">2023</parameter>
+                </parameters>
+                <purpose>Маркировка класса как автомобиля с указанием типа и года</purpose>
+            </annotation>
+        </annotations>
+
+        <documentation>
+            <description>Класс Car представляет автомобиль</description>
+        </documentation>
+
+        <fields>
+            <field>
+                <name>brand</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>"Неизвестно"</initial-value>
+                <validation>
+                    <rule>NotNull</rule>
+                    <rule>Not empty</rule>
+                    <rule>Not blank</rule>
+                </validation>
+            </field>
+
+            <field>
+                <name>year</name>
+                <type>int</type>
+                <access>private</access>
+                <initial-value>2020</initial-value>
+                <validation>
+                    <rule>Range: 1900-2025</rule>
+                </validation>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>Car</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <documentation>Конструктор по умолчанию</documentation>
+                <functionality>Создает автомобиль со значениями по умолчанию</functionality>
+                <initialization>
+                    <field name="brand">"Неизвестно"</field>
+                    <field name="year">2020</field>
+                </initialization>
+            </constructor>
+
+            <constructor>
+                <name>Car</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>brand</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                    <parameter>
+                        <name>year</name>
+                        <type>int</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <documentation>Конструктор с параметрами</documentation>
+                <functionality>Создает автомобиль с указанными параметрами</functionality>
+                <validation>
+                    <validation-call>setBrand(brand)</validation-call>
+                    <validation-call>setYear(year)</validation-call>
+                </validation>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getBrand</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает марку автомобиля</functionality>
+            </method>
+
+            <method category="mutator">
+                <name>setBrand</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>brand</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает марку автомобиля с валидацией</functionality>
+                <validation>
+                    <rule>Проверка на null</rule>
+                    <rule>Проверка на пустую строку</rule>
+                    <rule>Обрезка пробелов (trim)</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>brand == null || brand.trim().isEmpty()</condition>
+                        <message>Марка не может быть пустой</message>
+                    </exception>
+                </exceptions>
+            </method>
+
+            <method category="accessor">
+                <name>getYear</name>
+                <return-type>int</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает год выпуска автомобиля</functionality>
+            </method>
+
+            <method category="mutator">
+                <name>setYear</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>year</name>
+                        <type>int</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Устанавливает год выпуска с валидацией</functionality>
+                <validation>
+                    <rule>Диапазон: от 1900 до 2025</rule>
+                </validation>
+                <exceptions>
+                    <exception type="IllegalArgumentException">
+                        <condition>year &lt; 1900 || year &gt; 2025</condition>
+                        <message>Год должен быть от 1900 до 2024</message>
+                    </exception>
+                </exceptions>
+                <note>В сообщении об ошибке указано 2024, но проверка до 2025</note>
+            </method>
+
+            <method category="business">
+                <name>isNew</name>
+                <return-type>boolean</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <documentation>Проверить, является ли автомобиль новым</documentation>
+                <functionality>Определяет, является ли автомобиль новым по году выпуска</functionality>
+                <logic>
+                    <condition>year >= 2025</condition>
+                    <true-result>Автомобиль считается новым</true-result>
+                    <false-result>Автомобиль не считается новым</false-result>
+                </logic>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление автомобиля</functionality>
+                <return-format>"{brand} ({year})"</return-format>
+            </method>
+        </methods>
+    </class>
+</class-report>

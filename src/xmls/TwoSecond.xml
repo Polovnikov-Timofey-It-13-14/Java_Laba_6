@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>TwoSecond</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Test Class with Invalid Annotation</type>
+
+        <annotations>
+            <annotation type="Two">
+                <parameters>
+                    <parameter name="first">"ValidString" (valid)</parameter>
+                    <parameter name="second">-1 (negative)</parameter>
+                </parameters>
+                <purpose>Специально создан с отрицательным значением в second для тестирования валидации</purpose>
+                <validation-issue>Отрицательное значение в свойстве second</validation-issue>
+            </annotation>
+        </annotations>
+
+        <documentation>
+            <description>Класс с некорректной аннотацией @Two - отрицательное значение в second</description>
+            <purpose>Используется для тестирования обработки ошибочных значений</purpose>
+        </documentation>
+
+        <constructors>
+            <constructor>
+                <name>TwoSecond</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <documentation>Конструктор по умолчанию</documentation>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление объекта</functionality>
+                <return-value>"TwoSecond{}"</return-value>
+            </method>
+        </methods>
+    </class>
+</class-report>

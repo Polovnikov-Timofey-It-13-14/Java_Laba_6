@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>Employee</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO with ToString Annotation</type>
+
+        <annotations>
+            <annotation type="ToString">
+                <parameter name="value">Mode.YES (по умолчанию)</parameter>
+                <purpose>Включить все поля класса в строковое представление по умолчанию</purpose>
+            </annotation>
+        </annotations>
+
+        <fields>
+            <field>
+                <name>name</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <annotations>
+                    <annotation type="ToString">
+                        <parameter name="value">Mode.YES</parameter>
+                        <purpose>Явное включение поля в строковое представление</purpose>
+                    </annotation>
+                </annotations>
+                <initial-value>"null"</initial-value>
+                <included-in-tostring>true</included-in-tostring>
+            </field>
+
+            <field>
+                <name>company</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <annotations>
+                    <annotation type="ToString">
+                        <parameter name="value">Mode.NO</parameter>
+                        <purpose>Исключение поля из строкового представления</purpose>
+                    </annotation>
+                </annotations>
+                <initial-value>"null"</initial-value>
+                <included-in-tostring>false</included-in-tostring>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>Employee</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Конструктор по умолчанию</functionality>
+                <initialization>
+                    <field name="name">"null"</field>
+                    <field name="company">"null"</field>
+                </initialization>
+            </constructor>
+
+            <constructor>
+                <name>Employee</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>name</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                    <parameter>
+                        <name>company</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Конструктор с параметрами</functionality>
+                <initialization>
+                    <field name="name">Параметр name</field>
+                    <field name="company">Параметр company</field>
+                </initialization>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getName</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает имя сотрудника</functionality>
+            </method>
+
+            <method category="accessor">
+                <name>getCompany</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает название компании</functionality>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Стандартное строковое представление объекта</functionality>
+                <return-format>"Employee{name='{name}', company='{company}'}"</return-format>
+                <note>Игнорирует аннотации @ToString, использует все поля</note>
+            </method>
+        </methods>
+
+        <annotation-behavior>
+            <field name="name">
+                <annotation>@ToString(Mode.YES)</annotation>
+                <behavior>Всегда включается в рефлексивный toString</behavior>
+            </field>
+            <field name="company">
+                <annotation>@ToString(Mode.NO)</annotation>
+                <behavior>Исключается из рефлексивного toString</behavior>
+            </field>
+        </annotation-behavior>
+    </class>
+</class-report>

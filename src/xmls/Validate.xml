@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>Validate</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <targets>
+            <target>TYPE</target>
+            <target>ANNOTATION_TYPE</target>
+        </targets>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <parameters>
+            <parameter>
+                <name>value</name>
+                <type>java.lang.Class&lt;?&gt;[]</type>
+                <required>true</required>
+                <default-value>None</default-value>
+                <purpose>Массив классов, которые должны использоваться для валидации</purpose>
+            </parameter>
+        </parameters>
+
+        <purpose>
+            Аннотация для указания списка классов, которые должны использоваться
+            для валидации. Может применяться к классам и другим аннотациям.
+            Содержит массив классов для проверки.
+        </purpose>
+
+        <special-features>
+            <feature>Поддержка массива классов как параметра</feature>
+            <feature>Может применяться к аннотациям (ANNOTATION_TYPE)</feature>
+            <feature>Используется для мета-аннотирования</feature>
+        </special-features>
+
+        <code-location>
+            <file>Validate.java</file>
+            <lines>1-8</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

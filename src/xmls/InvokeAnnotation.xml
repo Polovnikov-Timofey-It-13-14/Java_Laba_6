@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>InvokeAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Utility Class</type>
+
+        <imports>
+            <import>java.lang.reflect.Method</import>
+            <import>java.lang.reflect.InvocationTargetException</import>
+        </imports>
+
+        <purpose>
+            Утилитарный класс для автоматического вызова методов,
+            помеченных аннотацией @Invoke, с использованием рефлексии.
+            Обеспечивает автоматическую обработку параметров методов.
+        </purpose>
+
+        <methods>
+            <method category="public-interface">
+                <name>invokeAnnotatedMethods</name>
+                <return-type>void</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>target</name>
+                        <type>java.lang.Object</type>
+                        <validation>NotNull</validation>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <functionality>
+                    Основной публичный метод для вызова аннотированных методов.
+                    Находит все методы с аннотацией @Invoke и вызывает их.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка входного параметра на null</step>
+                    <step number="2">Получение класса объекта через getClass()</step>
+                    <step number="3">Получение всех методов класса через getDeclaredMethods()</step>
+                    <step number="4">Фильтрация методов с аннотацией @Invoke</step>
+                    <step number="5">Для каждого аннотированного метода:
+                        - Установка доступности (setAccessible(true))
+                        - Подготовка параметров
+                        - Вызов метода
+                        - Обработка результата
+                    </step>
+                    <step number="6">Логирование статистики</step>
+                </algorithm>
+
+                <validation>
+                    <rule>
+                        <condition>target != null</condition>
+                        <exception>IllegalArgumentException</exception>
+                        <message>Целевой объект не может быть null</message>
+                    </rule>
+                </validation>
+
+                <logging>
+                    <log-type>Total methods count</log-type>
+                    <log-type>Found @Invoke methods</log-type>
+                    <log-type>Method parameters count</log-type>
+                    <log-type>Method execution results</log-type>
+                    <log-type>Invocation statistics</log-type>
+                    <log-type>Error messages</log-type>
+                </logging>
+
+                <error-handling>
+                    <exception-type>IllegalArgumentException</exception-type>
+                    <exception-type>IllegalAccessException</exception-type>
+                    <exception-type>InvocationTargetException</exception-type>
+                    <handling-strategy>Try-catch with detailed error messages</handling-strategy>
+                </error-handling>
+            </method>
+
+            <method category="private-helper">
+                <name>WithParameters</name>
+                <return-type>java.lang.Object</return-type>
+                <parameters count="2">
+                    <parameter>
+                        <name>method</name>
+                        <type>java.lang.reflect.Method</type>
+                    </parameter>
+                    <parameter>
+                        <name>target</name>
+                        <type>java.lang.Object</type>
+                    </parameter>
+                </parameters>
+                <access>private static</access>
+                <functionality>
+                    Подготавливает и вызывает метод с автоматически сгенерированными
+                    параметрами по умолчанию.
+                </functionality>
+
+                <process>
+                    <step>Получение типов параметров метода</step>
+                    <step>Создание массива значений по умолчанию</step>
+                    <step>Вызов метода через reflection</step>
+                    <step>Возврат результата вызова</step>
+                </process>
+
+                <exceptions>
+                    <exception>IllegalAccessException</exception>
+                    <exception>InvocationTargetException</exception>
+                </exceptions>
+
+                <code-style-issue>
+                    <issue>Method name violates camelCase convention</issue>
+                    <suggestion>Rename to 'withParameters'</suggestion>
+                    <severity>low</severity>
+                </code-style-issue>
+            </method>
+
+            <method category="private-helper">
+                <name>getDefaultValue</name>
+                <return-type>java.lang.Object</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>type</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                    </parameter>
+                </parameters>
+                <access>private static</access>
+                <functionality>
+                    Возвращает значения по умолчанию для различных типов данных.
+                    Используется для автоматической подстановки параметров в методы.
+                </functionality>
+
+                <type-support>
+                    <supported-type>
+                        <type>int / Integer</type>
+                        <default-value>0</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>long / Long</type>
+                        <default-value>0L</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>double / Double</type>
+                        <default-value>0.0</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>float / Float</type>
+                        <default-value>0.0f</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>boolean / Boolean</type>
+                        <default-value>false</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>char / Character</type>
+                        <default-value>'\0'</default-value>
+                    </supported-type>
+                    <supported-type>
+                        <type>java.lang.String</type>
+                        <default-value>null</default-value>
+                        <potential-issue>Может вызвать NullPointerException</potential-issue>
+                    </supported-type>
+                    <supported-type>
+                        <type>Other reference types</type>
+                        <default-value>null</default-value>
+                    </supported-type>
+                </type-support>
+            </method>
+        </methods>
+
+        <statistics>
+            <public-methods>1</public-methods>
+            <private-methods>2</private-methods>
+            <static-methods>3</static-methods>
+            <supported-primitive-types>8</supported-primitive-types>
+        </statistics>
+    </class>
+</class-report>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>Two</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <target>TYPE</target>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <documentation>
+            <description>Аннотация @Two с двумя обязательными свойствами</description>
+            <purpose>Цель: TYPE (для классов). Доступна во время выполнения программы</purpose>
+        </documentation>
+
+        <parameters>
+            <parameter>
+                <name>first</name>
+                <type>java.lang.String</type>
+                <required>true</required>
+                <default-value>Нет значения по умолчанию</default-value>
+                <documentation>Строковое свойство аннотации</documentation>
+            </parameter>
+            <parameter>
+                <name>second</name>
+                <type>int</type>
+                <required>true</required>
+                <default-value>Нет значения по умолчанию</default-value>
+                <documentation>Числовое свойство аннотации</documentation>
+            </parameter>
+        </parameters>
+
+        <code-location>
+            <file>Two.java</file>
+            <lines>1-23</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

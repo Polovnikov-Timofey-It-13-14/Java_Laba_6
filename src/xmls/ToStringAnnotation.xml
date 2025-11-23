@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>ToStringAnnotation</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>Utility Class for Reflection-based toString</type>
+
+        <imports>
+            <import>java.lang.reflect.Field</import>
+        </imports>
+
+        <purpose>
+            Утилитарный класс для создания строкового представления объектов
+            на основе аннотаций @ToString. Обеспечивает гибкое форматирование
+            с учетом настроек включения/исключения полей.
+        </purpose>
+
+        <methods>
+            <method category="public-interface">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="1">
+                    <parameter>
+                        <name>object</name>
+                        <type>java.lang.Object</type>
+                        <validation>Может быть null</validation>
+                    </parameter>
+                </parameters>
+                <access>public static</access>
+                <functionality>
+                    Создает строковое представление объекта на основе аннотаций @ToString.
+                    Учитывает настройки включения/исключения полей.
+                </functionality>
+
+                <algorithm>
+                    <step number="1">Проверка на null - возврат "null"</step>
+                    <step number="2">Получение класса объекта</step>
+                    <step number="3">Начало строки: SimpleName{</step>
+                    <step number="4">Получение всех полей класса через getDeclaredFields()</step>
+                    <step number="5">Для каждого поля: проверка shouldInclude()</step>
+                    <step number="6">Для включаемых полей: получение значения через reflection</step>
+                    <step number="7">Форматирование: fieldName='fieldValue'</step>
+                    <step number="8">Разделение полей запятыми</step>
+                    <step number="9">Завершение строки: }</step>
+                </algorithm>
+
+                <output-format>
+                    <template>ClassName{field1='value1', field2='value2', ...}</template>
+                    <example>Employee{name='John'}</example>
+                </output-format>
+
+                <error-handling>
+                    <exception-type>IllegalAccessException</exception-type>
+                    <handling-strategy>Замена значения на "ERROR"</handling-strategy>
+                    <error-format>fieldName=ERROR</error-format>
+                </error-handling>
+
+                <special-cases>
+                    <case>
+                        <condition>object == null</condition>
+                        <result>"null"</result>
+                    </case>
+                    <case>
+                        <condition>Нет полей для включения</condition>
+                        <result>"ClassName{}"</result>
+                    </case>
+                </special-cases>
+            </method>
+
+            <method category="private-helper">
+                <name>shouldInclude</name>
+                <return-type>boolean</return-type>
+                <parameters count="2">
+                    <parameter>
+                        <name>field</name>
+                        <type>java.lang.reflect.Field</type>
+                    </parameter>
+                    <parameter>
+                        <name>classes</name>
+                        <type>java.lang.Class&lt;?&gt;</type>
+                    </parameter>
+                </parameters>
+                <access>private static</access>
+                <functionality>
+                    Определяет, должно ли поле быть включено в строковое представление
+                    на основе аннотаций @ToString.
+                </functionality>
+
+                <decision-logic>
+                    <step number="1">Проверка аннотации @ToString на поле</step>
+                    <step number="2">Если аннотация есть на поле: вернуть fieldAnnotation.value() == Mode.YES</step>
+                    <step number="3">Проверка аннотации @ToString на классе</step>
+                    <step number="4">Если аннотация есть на классе: вернуть classAnnotation.value() == Mode.YES</step>
+                    <step number="5">По умолчанию: вернуть true</step>
+                </decision-logic>
+
+                <priority-rules>
+                    <rule priority="high">Аннотация поля имеет высший приоритет</rule>
+                    <rule priority="medium">Аннотация класса имеет средний приоритет</rule>
+                    <rule priority="low">Отсутствие аннотации = включение (true)</rule>
+                </priority-rules>
+
+                <return-cases>
+                    <case>
+                        <condition>fieldAnnotation exists AND value == YES</condition>
+                        <result>true</result>
+                    </case>
+                    <case>
+                        <condition>fieldAnnotation exists AND value == NO</condition>
+                        <result>false</result>
+                    </case>
+                    <case>
+                        <condition>classAnnotation exists AND value == YES</condition>
+                        <result>true</result>
+                    </case>
+                    <case>
+                        <condition>classAnnotation exists AND value == NO</condition>
+                        <result>false</result>
+                    </case>
+                    <case>
+                        <condition>no annotations</condition>
+                        <result>true</result>
+                    </case>
+                </return-cases>
+            </method>
+        </methods>
+    </class>
+</class-report>

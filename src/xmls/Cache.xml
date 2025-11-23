@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation-report>
+    <annotation>
+        <name>Cache</name>
+        <package>default</package>
+        <retention>RUNTIME</retention>
+        <target>TYPE</target>
+
+        <imports>
+            <import>java.lang.annotation.ElementType</import>
+            <import>java.lang.annotation.Retention</import>
+            <import>java.lang.annotation.RetentionPolicy</import>
+            <import>java.lang.annotation.Target</import>
+        </imports>
+
+        <documentation>
+            <description>Аннотация @Cache для указания кешируемых областей</description>
+            <purpose>Необязательное свойство value со значением по умолчанию - пустой массив</purpose>
+        </documentation>
+
+        <parameters>
+            <parameter>
+                <name>value</name>
+                <type>java.lang.String[]</type>
+                <required>false</required>
+                <default-value>empty array {}</default-value>
+                <documentation>Массив кешируемых областей</documentation>
+            </parameter>
+        </parameters>
+
+        <special-features>
+            <feature>Массив строк как параметр</feature>
+            <feature>Необязательный параметр со значением по умолчанию</feature>
+            <feature>Используется для указания областей кеширования</feature>
+        </special-features>
+
+        <code-location>
+            <file>Cache.java</file>
+            <lines>1-15</lines>
+        </code-location>
+    </annotation>
+</annotation-report>

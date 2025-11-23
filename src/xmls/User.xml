@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-report>
+    <class>
+        <name>User</name>
+        <package>default</package>
+        <access-modifier>public</access-modifier>
+        <type>POJO with Validate Annotation</type>
+
+        <annotations>
+            <annotation type="Validate">
+                <parameters>
+                    <parameter>
+                        <name>value</name>
+                        <type>Class&lt;?&gt;[]</type>
+                        <values>
+                            <value>java.lang.String.class</value>
+                            <value>java.lang.Integer.class</value>
+                            <value>User.class (self-reference)</value>
+                        </values>
+                    </parameter>
+                </parameters>
+                <purpose>Указывает классы для валидации данного класса</purpose>
+            </annotation>
+        </annotations>
+
+        <fields>
+            <field>
+                <name>username</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>"user"</initial-value>
+                <validation-required>true (предположительно)</validation-required>
+            </field>
+
+            <field>
+                <name>email</name>
+                <type>java.lang.String</type>
+                <access>private</access>
+                <initial-value>"user@example.com"</initial-value>
+                <validation-required>true (предположительно)</validation-required>
+            </field>
+        </fields>
+
+        <constructors>
+            <constructor>
+                <name>User</name>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Конструктор по умолчанию</functionality>
+                <initialization>
+                    <field name="username">"user"</field>
+                    <field name="email">"user@example.com"</field>
+                </initialization>
+            </constructor>
+
+            <constructor>
+                <name>User</name>
+                <parameters count="2">
+                    <parameter>
+                        <name>username</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                    <parameter>
+                        <name>email</name>
+                        <type>java.lang.String</type>
+                    </parameter>
+                </parameters>
+                <access>public</access>
+                <functionality>Конструктор с параметрами</functionality>
+                <initialization>
+                    <field name="username">Параметр username</field>
+                    <field name="email">Параметр email</field>
+                </initialization>
+            </constructor>
+        </constructors>
+
+        <methods>
+            <method category="accessor">
+                <name>getUsername</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает имя пользователя</functionality>
+            </method>
+
+            <method category="accessor">
+                <name>getEmail</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <functionality>Возвращает email пользователя</functionality>
+            </method>
+
+            <method category="object">
+                <name>toString</name>
+                <return-type>java.lang.String</return-type>
+                <parameters count="0"/>
+                <access>public</access>
+                <annotations>
+                    <annotation type="Override"/>
+                </annotations>
+                <functionality>Возвращает строковое представление объекта User</functionality>
+                <return-format>"User{username='{username}', email='{email}'}"</return-format>
+            </method>
+        </methods>
+
+        <validation-context>
+            <annotation-classes>
+                <class>java.lang.String</class>
+                <purpose>Валидация строковых полей (username, email)</purpose>
+            </annotation-classes>
+            <annotation-classes>
+                <class>java.lang.Integer</class>
+                <purpose>Валидация числовых полей (если бы были)</purpose>
+            </annotation-classes>
+            <annotation-classes>
+                <class>User</class>
+                <purpose>Самопроверка или рекурсивная валидация</purpose>
+            </annotation-classes>
+        </validation-context>
+
+        <design-patterns>
+            <pattern>JavaBean</pattern>
+            <pattern>POJO</pattern>
+            <pattern>Self-validating Entity</pattern>
+        </design-patterns>
+
+        <notes>
+            <note>Класс содержит само-ссылку в аннотации @Validate</note>
+            <note>Аннотация указывает на классы для валидации, но сама валидация не реализована</note>
+            <note>Поля username и email подлежат валидации через String.class</note>
+        </notes>
+
+        <potential-validation-rules>
+            <rule field="username">
+                <validation-class>String.class</validation-class>
+                <checks>NotNull, NotEmpty, Length validation</checks>
+            </rule>
+            <rule field="email">
+                <validation-class>String.class</validation-class>
+                <checks>Email format validation, NotNull</checks>
+            </rule>
+        </potential-validation-rules>
+    </class>
+</class-report>
