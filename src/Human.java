@@ -15,6 +15,9 @@ public class Human {
         if (age < 0) {
             throw new IllegalArgumentException("Возраст не может быть отрицательным");
         }
+        if (age > 150) {
+            throw new IllegalArgumentException("Возраст не может быть больше 150");
+        }
         this.name = name;
         this.age = age;
     }
@@ -78,3 +81,4 @@ public class Human {
         return "Person{name='" + name + "', age=" + age + "}";
     }
 }
+
