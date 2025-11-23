@@ -486,6 +486,7 @@ second: 2023
 Вывод:
 
 <img width="572" height="225" alt="image" src="https://github.com/user-attachments/assets/e23e1f7b-94d4-4a86-9c0c-1e7990e818ec" />
+
 ***
 
 (Задача 6)
