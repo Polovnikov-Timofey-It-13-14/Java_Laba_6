@@ -1,6 +1,42 @@
+package app;
+
+import annotations.Default;
+import handlers.*;
+import model.*;
+import service.Valid;
 import java.util.Scanner;
 
+/**
+ * Главный класс приложения для демонстрации работы с аннотациями.
+ * <p>Предоставляет интерактивное консольное меню для тестирования функциональности,
+ * связанной с пользовательскими аннотациями:</p>
+ *
+ * <p>Меню приложения:
+ * <ol>
+ *   <li>Демонстрация и тестирование аннотации {@link annotations.Invoke}</li>
+ *   <li>Демонстрация аннотации {@link annotations.Default}</li>
+ *   <li>Демонстрация и тестирование аннотации {@link annotations.ToString}</li>
+ *   <li>Демонстрация аннотации {@link annotations.Validate}</li>
+ *   <li>Демонстрация аннотации {@link annotations.Two}</li>
+ *   <li>Демонстрация аннотации {@link annotations.Cache}</li>
+ *   <li>Выход из приложения</li>
+ * </ol>
+ * </p>
+ *
+ */
 public class Main {
+
+    /**
+     * Главный метод приложения.
+     * <p>Создает меню для демонстрации работы.</p>
+     *
+     * @see service.Valid
+     * @see handlers.InvokeAnnotation
+     * @see handlers.ToStringAnnotation
+     * @see handlers.TwoAnnotation
+     * @see handlers.CacheAnnotation
+     * @see handlers.ValidateAnnotation
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Valid valid = new Valid();
