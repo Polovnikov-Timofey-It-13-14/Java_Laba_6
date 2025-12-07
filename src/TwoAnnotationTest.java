@@ -1,10 +1,24 @@
+import handlers.TwoAnnotation;
+import model.Car;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import service.TwoFirst;
+import service.TwoSecond;
+
 import static org.junit.jupiter.api.Assertions.*;
 
- //Тестовый класс для проверки обработки некорректной аннотации @Two
+/**
+ * Тестовый класс для проверки обработки аннотации {@link annotations.Two} и валидации.
+ *
+ * @see annotations.Two
+ * @see handlers.TwoAnnotation
+ */
+//Тестовый класс для проверки обработки некорректной аннотации @Two
 public class TwoAnnotationTest {
-    //Тест проверяет выброс исключения при пустой строке в свойстве first
+
+    /**
+     * Тест проверяет выброс исключения при пустой строке в свойстве {@code first}.
+     */
     @Test
     @DisplayName("Проверка обработки пустой строки в свойстве first")
     void testEmptyFirstProperty() {
@@ -18,7 +32,9 @@ public class TwoAnnotationTest {
                 "Сообщение исключения должно указывать на проблему с first: " + exception.getMessage());
     }
 
-    //Тест проверяет выброс исключения при отрицательном значении в свойстве second
+    /**
+     * Тест проверяет выброс исключения при отрицательном значении в свойстве {@code second}.
+     */
     @Test
     @DisplayName("Проверка обработки отрицательного значения в свойстве second")
     void testNegativeSecondProperty() {
@@ -32,7 +48,9 @@ public class TwoAnnotationTest {
                 "Сообщение исключения должно указывать на проблему с second: " + exception.getMessage());
     }
 
-    //Тест проверяет корректную обработку валидной аннотации
+    /**
+     * Тест проверяет корректную обработку валидной аннотации.
+     */
     @Test
     @DisplayName("Проверка корректной обработки валидной аннотации")
     void testValidAnnotation() {
@@ -42,7 +60,9 @@ public class TwoAnnotationTest {
         );
     }
 
-    //Тест проверяет обработку класса без аннотации @Two
+    /**
+     * Тест проверяет обработку класса без аннотации {@link annotations.Two}.
+     */
     @Test
     @DisplayName("Проверка обработки класса без аннотации @Two")
     void testClassWithoutAnnotation() {
