@@ -1,3 +1,6 @@
+import annotations.Invoke;
+import handlers.InvokeAnnotation;
+import model.Human;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -7,21 +10,54 @@ import java.lang.reflect.Method;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Тестовый класс для проверки аннотации {@link annotations.Invoke} и класса {@link handlers.InvokeAnnotation}.
+ *
+ * @see annotations.Invoke
+ * @see handlers.InvokeAnnotation
+ * @see model.Human
+ */
 //Тестовый класс для проверки аннотации @Invoke
 class InvokeAnnotationTest {
 
+    /** Тестируемый объект класса {@link model.Human}. */
     private Human human;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
-    //Подготовка тестового объекта перед каждым тестом
+    /**
+     * Подготовка тестового объекта перед каждым тестом.
+     * <p>Выполняет:
+     * <ul>
+     *   <li>Создание объекта {@link model.Human} с именем "Иван" и возрастом 25</li>
+     *   <li>Перенаправление стандартного вывода в {@code ByteArrayOutputStream}</li>
+     * </ul>
+     * </p>
+     */
     @BeforeEach
     void setUp() {
         human = new Human("Иван", 25);
         System.setOut(new PrintStream(outputStream));
     }
 
-    //Тест проверяет наличие аннотации @Invoke на методах класса Human
+    /**
+     * Тест проверяет наличие аннотации {@link annotations.Invoke} на методах класса {@link model.Human}.
+     * <p>Проверяет, что:
+     * <ul>
+     *   <li>Существует хотя бы один метод с аннотацией {@code @Invoke}</li>
+     *   <li>Точное количество аннотированных методов равно 4</li>
+     * </ul>
+     * </p>
+     *
+     * <p>Ожидаемые методы с аннотацией {@code @Invoke}:
+     * <ol>
+     *   <li>{@link model.Human#sayHello()}</li>
+     *   <li>{@link model.Human#introduce(String)}</li>
+     *   <li>{@link model.Human#checkAdult()}</li>
+     *   <li>{@link model.Human#celebrateBirthday()}</li>
+     * </ol>
+     * </p>
+     */
     @Test
     @DisplayName("Проверка наличия аннотации @Invoke на методах")
     void testInvokeAnnotationPresence() {
@@ -39,7 +75,9 @@ class InvokeAnnotationTest {
         assertEquals(4, annotatedMethodsCount, "Должно быть 4 метода с аннотацией @Invoke");
     }
 
-     //Тест проверяет вызов метода sayHello с аннотацией @Invoke
+    /**
+     * Тест проверяет вызов метода {@link model.Human#sayHello()} с аннотацией {@link annotations.Invoke}.
+     */
     @Test
     @DisplayName("Проверка вызова метода sayHello")
     void testSayHelloMethod() {
@@ -57,7 +95,10 @@ class InvokeAnnotationTest {
             fail("Метод sayHello должен выполняться без исключений: " + e.getMessage());
         }
     }
-    //Тест проверяет вызов метода introduce с аннотацией @Invoke
+
+    /**
+     * Тест проверяет вызов метода {@link model.Human#introduce(String)} с аннотацией {@link annotations.Invoke}.
+     */
     @Test
     @DisplayName("Проверка вызова метода introduce")
     void testIntroduceMethod() {
@@ -84,7 +125,9 @@ class InvokeAnnotationTest {
         }
     }
 
-    //Тест проверяет вызов метода checkAdult с аннотацией @Invoke
+    /**
+     * Тест проверяет вызов метода {@link model.Human#checkAdult()} с аннотацией {@link annotations.Invoke}.
+     */
     @Test
     @DisplayName("Проверка вызова метода checkAdult")
     void testCheckAdultMethod() {
@@ -102,7 +145,10 @@ class InvokeAnnotationTest {
             fail("Метод checkAdult должен выполняться без исключений: " + e.getMessage());
         }
     }
-    //Тест проверяет вызов метода celebrateBirthday с аннотацией @Invoke и изменение состояния
+
+    /**
+     * Тест проверяет вызов метода {@link model.Human#celebrateBirthday()} с аннотацией {@link annotations.Invoke}.
+     */
     @Test
     @DisplayName("Проверка вызова метода celebrateBirthday и изменения состояния")
     void testCelebrateBirthdayMethod() {
@@ -127,7 +173,9 @@ class InvokeAnnotationTest {
         }
     }
 
-    //Тест проверяет работу класса InvokeAnnotation
+    /**
+     * Тест проверяет работу класса {@link handlers.InvokeAnnotation}.
+     */
     @Test
     @DisplayName("Проверка работы InvokeAnnotation класса")
     void testInvokeAnnotationClass() {
@@ -152,7 +200,9 @@ class InvokeAnnotationTest {
         }
     }
 
-    //Тест проверяет поведение с несовершеннолетним человеко
+    /**
+     * Тест проверяет поведение с несовершеннолетним человеком.
+     */
     @Test
     @DisplayName("Проверка с несовершеннолетним человеком")
     void testUnderageHuman() {
@@ -170,7 +220,9 @@ class InvokeAnnotationTest {
         }
     }
 
-    //Тест проверяет обработку исключений в InvokeAnnotation
+    /**
+     * Тест проверяет обработку исключений в {@link handlers.InvokeAnnotation}.
+     */
     @Test
     @DisplayName("Проверка обработки null объекта")
     void testNullObjectHandling() {
@@ -179,7 +231,9 @@ class InvokeAnnotationTest {
         }, "Должно выбрасываться исключение для null объекта");
     }
 
-    //Восстановление оригинального System.out после тестов
+    /**
+     * <p>Вызывается после каждого теста для восстановления стандартного потока вывода.</p>
+     */
     @org.junit.jupiter.api.AfterEach
     void tearDown() {
         System.setOut(originalOut);
