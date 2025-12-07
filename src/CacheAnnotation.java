@@ -1,6 +1,22 @@
+package handlers;
+
+import annotations.Cache;
+
+/**
+ * Обработчик аннотации {@link annotations.Cache}.
+ * <p>Предоставляет функциональность для анализа и обработки классов,
+ * помеченных аннотацией {@code @Cache}.</p>
+ *
+ */
 public class CacheAnnotation {
 
-    //Обрабатывает аннотацию @Cache и выводит результат
+    /**
+     * Обрабатывает аннотацию {@link annotations.Cache} и выводит результат.
+     * <p>Метод анализирует переданный класс на наличие аннотации {@code @Cache}
+     * и выводит информацию о кэшируемых областях, если аннотация присутствует.</p>
+     *
+     * @see annotations.Cache
+     */
     public static void processCacheAnnotation(Class<?> classes) {
         if (classes.isAnnotationPresent(Cache.class)) {
             Cache annotation = classes.getAnnotation(Cache.class);
