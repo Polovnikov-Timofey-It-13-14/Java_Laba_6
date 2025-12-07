@@ -15,9 +15,9 @@ import java.util.Scanner;
  * <ol>
  *   <li>Демонстрация и тестирование аннотации {@link annotations.Invoke}</li>
  *   <li>Демонстрация аннотации {@link annotations.Default}</li>
- *   <li>Демонстрация и тестирование аннотации {@link annotations.ToString}</li>
+ *   <li>Демонстрация аннотации {@link annotations.ToString}</li>
  *   <li>Демонстрация аннотации {@link annotations.Validate}</li>
- *   <li>Демонстрация аннотации {@link annotations.Two}</li>
+ *   <li>Демонстрация и тестирование аннотации {@link annotations.Two}</li>
  *   <li>Демонстрация аннотации {@link annotations.Cache}</li>
  *   <li>Выход из приложения</li>
  * </ol>
